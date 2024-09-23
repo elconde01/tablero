@@ -126,8 +126,9 @@
         // Función para obtener datos desde el archivo JSON
         async function fetchData() {
             try {
-                //const response = await fetch('https://github.com/elconde01/tablero/blob/main/score.json'); // Reemplaza con la ruta correcta
-                const response = await fetch('https://elconde01.github.io/tablero/score.json?cachebuster=${newDate().getTime()}').then(response=>response.json()).then(data=>console.log(data)); // Reemplaza con la ruta correcta
+                // Agregar query string dinámico para evitar caché
+                const url = `https://elconde01.github.io/tablero/score.json?cachebuster=${new Date().getTime()}`;
+                const response = await fetch(url);
                 const data = await response.json();
                 return data;
             } catch (error) {
@@ -140,7 +141,7 @@
             const data = await fetchData();
             if (data.length > 0) {
                 const gameData = data[0]; // Accede al primer conjunto de datos
- 	
+ 
                 document.getElementById('local-score').textContent = gameData.localScore;
                 document.getElementById('visitor-score').textContent = gameData.visitorScore;
                 document.getElementById('timer').textContent = gameData.timer;
@@ -153,7 +154,7 @@
             }
 
             // Vuelve a actualizar después de 5 segundos
-            setTimeout(updateScoreboard, 500);
+            setTimeout(updateScoreboard, 5000); // 5 segundos
         }
 
         function updatePlayerList(elementId, players) {
