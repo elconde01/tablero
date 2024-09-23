@@ -127,7 +127,7 @@
         async function fetchData() {
             try {
                 //const response = await fetch('https://github.com/elconde01/tablero/blob/main/score.json'); // Reemplaza con la ruta correcta
-                const response = await fetch('https://elconde01.github.io/tablero/score.json'); // Reemplaza con la ruta correcta
+                const response = await fetch('https://elconde01.github.io/tablero/score.json?cachebuster=${newDate().getTime()}').then(response=>response.json()).then(data=>console.log(data)); // Reemplaza con la ruta correcta
                 const data = await response.json();
                 return data;
             } catch (error) {
